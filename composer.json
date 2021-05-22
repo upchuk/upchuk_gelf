@@ -1,0 +1,9 @@
+{
+    "name": "drupal/upchuk_gelf",
+    "type": "drupal-module",
+    "description": "Integrates with Graylog.",
+    "require": {
+        "drupal/monolog": "^2.0",
+        "graylog2/gelf-php": "^1.7"
+    }
+}

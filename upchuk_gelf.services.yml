@@ -1,0 +1,26 @@
+services:
+  upchuk_gelf.transport_factory:
+    class: Drupal\upchuk_gelf\GelfTransportFactory
+  upchuk_gelf.transport:
+    class: Gelf\Transport\UdpTransport
+    factory: 'upchuk_gelf.transport_factory:getTransport'
+  upchuk_gelf.publisher:
+    class: Gelf\Publisher
+    arguments: ['@upchuk_gelf.transport']
+  upchuk_gelf.formatter:
+    class: Drupal\upchuk_gelf\GelfMessageFormatter
+  # "Install" the gelf handler.
+  monolog.handler.gelf:
+    class: Monolog\Handler\GelfHandler
+    arguments: ['@upchuk_gelf.publisher']
+    calls:
+      - [setFormatter, ['@upchuk_gelf.formatter']]
+
+parameters:
+  # Handlers per channel.
+  monolog.channel_handlers:
+    default: ['gelf', 'drupal.dblog']
+    php: ['gelf', 'drupal.dblog']
+    image: ['drupal.dblog']
+    cron: ['drupal.dblog']
+    'page not found': ['drupal.dblog']
