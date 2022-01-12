@@ -7,20 +7,36 @@ services:
   upchuk_gelf.publisher:
     class: Gelf\Publisher
     arguments: ['@upchuk_gelf.transport']
-  upchuk_gelf.formatter:
+  monolog.formatter.gelf:
     class: Drupal\upchuk_gelf\GelfMessageFormatter
   # "Install" the gelf handler.
   monolog.handler.gelf:
     class: Monolog\Handler\GelfHandler
     arguments: ['@upchuk_gelf.publisher']
-    calls:
-      - [setFormatter, ['@upchuk_gelf.formatter']]
 
 parameters:
-  # Handlers per channel.
   monolog.channel_handlers:
-    default: ['gelf', 'drupal.dblog']
-    php: ['gelf', 'drupal.dblog']
-    image: ['drupal.dblog']
-    cron: ['drupal.dblog']
-    'page not found': ['drupal.dblog']
+    default:
+      handlers:
+        - name: 'gelf'
+          formatter: 'gelf'
+        - name: 'drupal.dblog'
+          formatter: 'line'
+    php:
+      handlers:
+        - name: 'gelf'
+          formatter: 'gelf'
+        - name: 'drupal.dblog'
+          formatter: 'line'
+    image:
+      handlers:
+        - name: 'drupal.dblog'
+          formatter: 'line'
+    cron:
+      handlers:
+        - name: 'drupal.dblog'
+          formatter: 'line'
+    'page not found':
+      handlers:
+        - name: 'drupal.dblog'
+          formatter: 'line'
