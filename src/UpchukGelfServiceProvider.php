@@ -22,9 +22,9 @@ class UpchukGelfServiceProvider extends ServiceProviderBase {
     }
 
     $handlers = $container->getParameter('monolog.channel_handlers');
-    foreach ($handlers as $type => &$ids) {
-      $ids = array_filter($ids, function ($id) {
-        return $id !== 'gelf';
+    foreach ($handlers as $type => &$definitions) {
+      $definitions['handlers'] = array_filter($definitions['handlers'], function ($info) {
+        return $info['name'] !== 'gelf';
       });
     }
 
