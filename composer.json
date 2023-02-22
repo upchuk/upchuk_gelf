@@ -4,6 +4,6 @@
     "description": "Integrates with Graylog.",
     "require": {
         "drupal/monolog": "^2.0",
-        "graylog2/gelf-php": "^1.7"
+        "graylog2/gelf-php": "^1.7 || ^2"
     }
 }
