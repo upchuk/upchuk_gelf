@@ -22,8 +22,8 @@ class GelfTransportFactory {
     }
 
     $host = $gelf_config['host'] ?? NULL;
-    $port = $gelf_config['port'] ?? NULL;
-    $chunk_size = $gelf_config['chunk_size'] ?? NULL;
+    $port = $gelf_config['port'] ?? 12201;
+    $chunk_size = $gelf_config['chunk_size'] ?? UdpTransport::CHUNK_SIZE_WAN;
     return new UdpTransport($host, $port, $chunk_size);
   }
 
