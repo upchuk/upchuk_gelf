@@ -3,7 +3,7 @@
     "type": "drupal-module",
     "description": "Integrates with Graylog.",
     "require": {
-        "drupal/monolog": "^2.0",
+        "drupal/monolog": "^2.0 || ^3.0",
         "graylog2/gelf-php": "^1.7 || ^2"
     }
 }
