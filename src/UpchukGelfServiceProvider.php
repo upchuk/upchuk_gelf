@@ -16,14 +16,14 @@ class UpchukGelfServiceProvider extends ServiceProviderBase {
    * {@inheritdoc}
    */
   public function alter(ContainerBuilder $container) {
-    $gelf_config = Settings::get('gelf_config');
-    if ($gelf_config) {
-      return;
-    }
-
     if ($container->hasDefinition('monolog.formatter.gelf')) {
       $container->getDefinition('monolog.formatter.gelf')
         ->setClass(GelfMessageFormatter::class);
+    }
+
+    $gelf_config = Settings::get('gelf_config');
+    if ($gelf_config) {
+      return;
     }
 
     $handlers = $container->getParameter('monolog.channel_handlers');
