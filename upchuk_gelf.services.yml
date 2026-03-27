@@ -7,8 +7,6 @@ services:
   upchuk_gelf.publisher:
     class: Gelf\Publisher
     arguments: ['@upchuk_gelf.transport']
-  monolog.formatter.gelf:
-    class: Drupal\upchuk_gelf\GelfMessageFormatter
   # "Install" the gelf handler.
   monolog.handler.gelf:
     class: Monolog\Handler\GelfHandler

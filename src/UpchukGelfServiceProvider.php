@@ -21,6 +21,11 @@ class UpchukGelfServiceProvider extends ServiceProviderBase {
       return;
     }
 
+    if ($container->hasDefinition('monolog.formatter.gelf')) {
+      $container->getDefinition('monolog.formatter.gelf')
+        ->setClass(GelfMessageFormatter::class);
+    }
+
     $handlers = $container->getParameter('monolog.channel_handlers');
     foreach ($handlers as $type => &$definitions) {
       $definitions['handlers'] = array_filter($definitions['handlers'], function ($info) {
